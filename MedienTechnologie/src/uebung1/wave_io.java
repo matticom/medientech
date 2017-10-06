@@ -1,4 +1,8 @@
+package uebung1;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class wave_io 
 {
@@ -20,6 +24,8 @@ public class wave_io
 	
 		inFilename=args[0];
 		
+		
+		
 		//read wave data, sample contained in array readWavFile.sound
 		WavFile readWavFile = null;
 		try {
@@ -32,13 +38,20 @@ public class wave_io
 			validBits = readWavFile.getValidBits();
 			sampleRate = readWavFile.getSampleRate();
 		
-			// samples schreiben 2.1.	
-			for (int i=0; i < samples;i++) {
 			
-				// ********* ToDo *************** 	
-				
-			}
+			// samples schreiben 2.1.	
+			
 		    
+			try (FileWriter fw = new FileWriter(new File("./samples/sine_hi.txt"))) {
+				PrintWriter fileOut = new PrintWriter(fw, true);
+				for (int i=0; i < samples;i++) {
+					// ********* ToDo *************** 	
+					fileOut.println(readWavFile.sound[i]);
+				}
+			} catch (IOException e) {
+				System.out.println("Problem beim Öffnen der Datei zum Schreiben");
+			}
+			
 		    if (args.length == 1) 
 				System.exit(0);
 			
@@ -83,4 +96,5 @@ public class wave_io
 			e.printStackTrace();
 		}
 	}
+	
 }

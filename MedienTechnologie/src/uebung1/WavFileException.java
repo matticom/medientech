@@ -1,3 +1,4 @@
+package uebung1;
 
 public class WavFileException extends Exception
 {
