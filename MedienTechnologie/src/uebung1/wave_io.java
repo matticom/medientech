@@ -42,14 +42,14 @@ public class wave_io
 			// samples schreiben 2.1.	
 			
 		    
-			try (FileWriter fw = new FileWriter(new File("./samples/sine_hi.txt"))) {
-				PrintWriter fileOut = new PrintWriter(fw, true);
-				for (int i=0; i < samples;i++) {
-					fileOut.println(readWavFile.sound[i]);
-				}
-			} catch (IOException e) {
-				System.out.println("Problem beim Öffnen der Datei zum Schreiben");
-			}
+//			try (FileWriter fw = new FileWriter(new File("./samples/sine_hi.txt"))) {
+//				PrintWriter fileOut = new PrintWriter(fw, true);
+//				for (int i=0; i < samples;i++) {
+//					fileOut.println(readWavFile.sound[i]);
+//				}
+//			} catch (IOException e) {
+//				System.out.println("Problem beim Öffnen der Datei zum Schreiben");
+//			}
 			
 		    if (args.length == 1) 
 				System.exit(0);
