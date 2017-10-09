@@ -45,7 +45,6 @@ public class wave_io
 			try (FileWriter fw = new FileWriter(new File("./samples/sine_hi.txt"))) {
 				PrintWriter fileOut = new PrintWriter(fw, true);
 				for (int i=0; i < samples;i++) {
-					// ********* ToDo *************** 	
 					fileOut.println(readWavFile.sound[i]);
 				}
 			} catch (IOException e) {
@@ -67,26 +66,23 @@ public class wave_io
 		try {
 
 			// 2.4 Downsampling
+		
 			for (int i=0; i < samples/2;i++) {
-				
-				// ********* ToDo *************** 	
-				
+//				readWavFile.sound[i*2] = 0;
 			}
+			
+			
 			
  			// 3.2 Bitreduzierung
 			int reduced_bits = 1;
 			for (int i=0; i < samples;i++) {
-			
-				// ********* ToDo *************** 	
-				
+//				readWavFile.sound[i] = (short)((readWavFile.sound[i]/2*reduced_bits)*2*reduced_bits);	
 			}
 			
  			// 3.4 Bitreduzierung
 			reduced_bits = 1;
 			for (int i=0; i < samples;i++) {
-			
-				// ********* ToDo *************** 	
-				
+				readWavFile.sound[i] = (short)((readWavFile.sound[i])-((readWavFile.sound[i]/2*reduced_bits)*2*reduced_bits));
 			}
 			
 			WavFile.write_wav(outFilename, numChannels, numFrames, validBits, sampleRate, readWavFile.sound);
