@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 
 public class wave_io 
 {
-	public static void main(String[] args) 
+	public static void waveConvert(String[] args, int reduced_bits) 
 	{
 		int samples=0;
 		int validBits=0;
@@ -74,15 +74,15 @@ public class wave_io
 			
 			
  			// 3.2 Bitreduzierung
-			int reduced_bits = 1;
+//			int reduced_bits = 1;
 			for (int i=0; i < samples;i++) {
-//				readWavFile.sound[i] = (short)((readWavFile.sound[i]/2*reduced_bits)*2*reduced_bits);	
+				readWavFile.sound[i] = (short)((readWavFile.sound[i]/2*reduced_bits)*2*reduced_bits);	
 			}
 			
  			// 3.4 Bitreduzierung
-			reduced_bits = 1;
+//			reduced_bits = 1;
 			for (int i=0; i < samples;i++) {
-				readWavFile.sound[i] = (short)((readWavFile.sound[i])-((readWavFile.sound[i]/2*reduced_bits)*2*reduced_bits));
+//				readWavFile.sound[i] = (short)((readWavFile.sound[i])-((readWavFile.sound[i]/2*reduced_bits)*2*reduced_bits));
 			}
 			
 			WavFile.write_wav(outFilename, numChannels, numFrames, validBits, sampleRate, readWavFile.sound);
