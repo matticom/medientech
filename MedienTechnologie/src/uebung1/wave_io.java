@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 
 public class wave_io 
 {
-	public static void waveConvert(String[] args, int reduced_bits) 
+	public static void waveConvert(String[] args, int reduced_bits, String writeValueTxt, boolean downsampling, boolean bitReduction, boolean bitNoise) 
 	{
 		int samples=0;
 		int validBits=0;
@@ -41,15 +41,17 @@ public class wave_io
 			
 			// samples schreiben 2.1.	
 			
-		    
-//			try (FileWriter fw = new FileWriter(new File("./samples/sine_hi.txt"))) {
-//				PrintWriter fileOut = new PrintWriter(fw, true);
-//				for (int i=0; i < samples;i++) {
-//					fileOut.println(readWavFile.sound[i]);
-//				}
-//			} catch (IOException e) {
-//				System.out.println("Problem beim Öffnen der Datei zum Schreiben");
-//			}
+		    if (writeValueTxt != null){
+		    	try (FileWriter fw = new FileWriter(new File(writeValueTxt))) {
+					PrintWriter fileOut = new PrintWriter(fw, true);
+					for (int i=0; i < samples;i++) {
+						fileOut.println(readWavFile.sound[i]);
+					}
+				} catch (IOException e) {
+					System.out.println("Problem beim Öffnen der Datei zum Schreiben");
+				}
+		    }
+			
 			
 		    if (args.length == 1) 
 				System.exit(0);
@@ -66,24 +68,31 @@ public class wave_io
 		try {
 
 			// 2.4 Downsampling
-		
-			for (int i=0; i < samples/2;i++) {
-//				readWavFile.sound[i*2] = 0;
+			if (downsampling){
+				for (int i=0; i < samples/2;i++) {
+					readWavFile.sound[i*2] = 0;
+				}
 			}
-			
-			
-			
+		
+		
  			// 3.2 Bitreduzierung
 //			int reduced_bits = 1;
-			for (int i=0; i < samples;i++) {
-				readWavFile.sound[i] = (short)((readWavFile.sound[i]/2*reduced_bits)*2*reduced_bits);	
+			
+			if (bitReduction) {
+				for (int i=0; i < samples;i++) {
+					readWavFile.sound[i] = (short)((readWavFile.sound[i]/2*reduced_bits)*2*reduced_bits);	
+				}
 			}
+			
 			
  			// 3.4 Bitreduzierung
 //			reduced_bits = 1;
-			for (int i=0; i < samples;i++) {
-//				readWavFile.sound[i] = (short)((readWavFile.sound[i])-((readWavFile.sound[i]/2*reduced_bits)*2*reduced_bits));
+			if (bitNoise){
+				for (int i=0; i < samples;i++) {
+					readWavFile.sound[i] = (short)(readWavFile.sound[i]%(2*reduced_bits));
+				}
 			}
+			
 			
 			WavFile.write_wav(outFilename, numChannels, numFrames, validBits, sampleRate, readWavFile.sound);
 		}			
