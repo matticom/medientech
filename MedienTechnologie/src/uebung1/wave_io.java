@@ -69,9 +69,11 @@ public class wave_io
 
 			// 2.4 Downsampling
 			if (downsampling){
+				short[] soundNew = new short[samples/2];
 				for (int i=0; i < samples/2;i++) {
-					readWavFile.sound[i*2] = 0;
+					soundNew[i] = readWavFile.sound[i*2];
 				}
+				readWavFile.sound = soundNew;
 			}
 		
 		
@@ -79,8 +81,9 @@ public class wave_io
 //			int reduced_bits = 1;
 			
 			if (bitReduction) {
-				for (int i=0; i < samples;i++) {
-					readWavFile.sound[i] = (short)((readWavFile.sound[i]/2*reduced_bits)*2*reduced_bits);	
+				for (int i=0; i < samples; i++) {
+					short temp = (short)(readWavFile.sound[i]/Math.pow(2, reduced_bits));
+					readWavFile.sound[i] = (short)(temp*Math.pow(2, reduced_bits));	
 				}
 			}
 			
@@ -88,13 +91,20 @@ public class wave_io
  			// 3.4 Bitreduzierung
 //			reduced_bits = 1;
 			if (bitNoise){
-				for (int i=0; i < samples;i++) {
-					readWavFile.sound[i] = (short)(readWavFile.sound[i]%(2*reduced_bits));
+				for (int i=0; i < samples; i++) {
+					short original = readWavFile.sound[i];
+					short reduced = (short)(readWavFile.sound[i]/Math.pow(2, reduced_bits));
+					reduced = (short)(reduced*Math.pow(2, reduced_bits));
+					short diff = (short)(reduced - original);
+					readWavFile.sound[i] = (short)(diff*Math.pow(2, validBits-reduced_bits-1));	
 				}
 			}
 			
-			
+			if (downsampling){
+				WavFile.write_wav(outFilename, numChannels, numFrames/2, validBits, sampleRate/2, readWavFile.sound);
+			}
 			WavFile.write_wav(outFilename, numChannels, numFrames, validBits, sampleRate, readWavFile.sound);
+			
 		}			
 		catch (Exception e) {
 			System.err.println(e);
