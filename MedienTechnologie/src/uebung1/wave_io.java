@@ -102,8 +102,10 @@ public class wave_io
 			
 			if (downsampling){
 				WavFile.write_wav(outFilename, numChannels, numFrames/2, validBits, sampleRate/2, readWavFile.sound);
+			} else {
+				WavFile.write_wav(outFilename, numChannels, numFrames, validBits, sampleRate, readWavFile.sound);
 			}
-			WavFile.write_wav(outFilename, numChannels, numFrames, validBits, sampleRate, readWavFile.sound);
+			
 			
 		}			
 		catch (Exception e) {
