@@ -71,7 +71,7 @@ public final class BmpReader {
 			System.out.println("fileSize " + fileSize);
 			System.out.println("bitsPerPixel " + bitsPerPixel);
 			System.out.println("Breite " + width);
-			System.out.println("H�he " + height);
+			System.out.println("Höhe " + height);
 			
 			if (width <= 0)
 				throw new RuntimeException("Invalid width: " + width);
