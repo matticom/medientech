@@ -40,8 +40,8 @@ public class WavDataConv {
 		return Arrays.asList(new Object[][] {
 			//(String[] inOut, 	int reduced_bits, 	String writeValueTxt, 	boolean downsampling, 	boolean bitReduction, 	boolean bitNoise) 
 			
-//			{"./samples/sine_lo01.wav", "./samples/sine_lo01_downsampling.wav", 0, "./samples/sine_lo01_downsampling.txt", true, false, false},
-//			{"./samples/sine_hi01.wav", "./samples/sine_hi01_downsampling.wav", 0, "./samples/sine_hi01_downsampling.txt", true, false, false},
+			{"./samples/sine_lo01.wav", null, 0, "./samples/sine_lo01.txt", false, false, false},
+			{"./samples/sine_hi01.wav", null, 0, "./samples/sine_hi01.txt", false, false, false},
 //			
 //			
 //			{"./samples/Sprache_Carbon.wav", "./samples/Sprache_Carbon_-1Bit.wav", 1, "./samples/Sprache_Carbon_-1Bit.txt", false, true, false},
@@ -106,7 +106,7 @@ public class WavDataConv {
 //			{"./samples/Musik_Carbon.wav", "./samples/Musik_Carbon_-12BitNoise.wav", 12, "./samples/Musik_Carbon_-12BitNoise.txt", false, false, true},
 //			{"./samples/Musik_Carbon.wav", "./samples/Musik_Carbon_-13BitNoise.wav", 13, "./samples/Musik_Carbon_-13BitNoise.txt", false, false, true}, 
 //			{"./samples/Musik_Carbon.wav", "./samples/Musik_Carbon_-14BitNoise.wav", 14, "./samples/Musik_Carbon_-14BitNoise.txt", false, false, true},
-			{"./samples/Musik_Carbon.wav", "./samples/Musik_Carbon_-16BitNoise.wav", 16, "./samples/Musik_Carbon_-16BitNoise.txt", false, false, true},
+//			{"./samples/Musik_Carbon.wav", "./samples/Musik_Carbon_-16BitNoise.wav", 16, "./samples/Musik_Carbon_-16BitNoise.txt", false, false, true},
 			
 		});
 	}

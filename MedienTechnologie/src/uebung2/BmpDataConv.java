@@ -44,29 +44,37 @@ public class BmpDataConv {
 	
 	private static List<Object[]> generateTestArrayList() {
 		return Arrays.asList(new Object[][] {
-			// String input, String output, String writeValueTxt, boolean greyScale, int reductionFactor, boolean downsampling, boolean isHorizontalDS, int reduced_bits, boolean bitReduction, boolean bitNoise
+			// String input, String output, String writeValueTxt, boolean greyScale, int reductionFactor, boolean downsampling, 
+			// boolean isHorizontalDS, int reduced_bits, boolean bitReduction, boolean bitNoise
 			
-			{"./backupImage/a02-super-sampling.bmp", "./samples/test.bmp", "./samples/test", false, 2, false, false, 1, false, false},
+			{"./backupImage/Details_Carbon.bmp", "./samples/test.bmp", "./samples/test", false, 2, true, false, 1, false, false},
+			{"./backupImage/grating_V2.bmp", "./samples/horizontalDS2.bmp", "./samples/test", false, 2, true, false, 1, false, false},
+			{"./backupImage/grating_V2.bmp", "./samples/horizontalDS3.bmp", "./samples/test", false, 3, true, false, 1, false, false},
+			{"./backupImage/grating_V2.bmp", "./samples/horizontalDS4.bmp", "./samples/test", false, 4, true, false, 1, false, false},
+			{"./backupImage/grating_V2.bmp", "./samples/horizontalDS5.bmp", "./samples/test", false, 5, true, false, 1, false, false},
+			
+			{"./backupImage/Details_Carbon.bmp", "./samples/detail_gray.bmp", "./samples/test", true, 5, false, false, 1, false, false},
+			
 			
 			// BitReduktion der Farben
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitReduction-1.bmp", "./samples/test", false, 2, false, false, 1, true, false},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitReduction-2.bmp", null, false, 2, false, false, 2, true, false},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitReduction-3.bmp", null, false, 2, false, false, 3, true, false},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitReduction-4.bmp", null, false, 2, false, false, 4, true, false},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitReduction-5.bmp", null, false, 2, false, false, 5, true, false},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitReduction-6.bmp", null, false, 2, false, false, 6, true, false},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitReduction-7.bmp", null, false, 2, false, false, 7, true, false},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitReduction-8.bmp", null, false, 2, false, false, 8, true, false},
-			
-			// BitNoise der Farben
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitNoise-1.bmp", null, false, 2, false, false, 1, false, true},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitNoise-2.bmp", null, false, 2, false, false, 2, false, true},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitNoise-3.bmp", null, false, 2, false, false, 3, false, true},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitNoise-4.bmp", null, false, 2, false, false, 4, false, true},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitNoise-5.bmp", null, false, 2, false, false, 5, false, true},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitNoise-6.bmp", null, false, 2, false, false, 6, false, true},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitNoise-7.bmp", null, false, 2, false, false, 7, false, true},
-			{"./backupImage/a02-super-sampling.bmp", "./samples/bitNoise-8.bmp", null, false, 2, false, false, 8, false, true},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitReduction-1.bmp", "./samples/test", false, 2, false, false, 1, true, false},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitReduction-2.bmp", null, false, 2, false, false, 2, true, false},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitReduction-3.bmp", null, false, 2, false, false, 3, true, false},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitReduction-4.bmp", null, false, 2, false, false, 4, true, false},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitReduction-5.bmp", null, false, 2, false, false, 5, true, false},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitReduction-6.bmp", null, false, 2, false, false, 6, true, false},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitReduction-7.bmp", null, false, 2, false, false, 7, true, false},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitReduction-8.bmp", null, false, 2, false, false, 8, true, false},
+//			
+//			// BitNoise der Farben
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitNoise-1.bmp", null, false, 2, false, false, 1, false, true},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitNoise-2.bmp", null, false, 2, false, false, 2, false, true},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitNoise-3.bmp", null, false, 2, false, false, 3, false, true},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitNoise-4.bmp", null, false, 2, false, false, 4, false, true},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitNoise-5.bmp", null, false, 2, false, false, 5, false, true},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitNoise-6.bmp", null, false, 2, false, false, 6, false, true},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitNoise-7.bmp", null, false, 2, false, false, 7, false, true},
+//			{"./backupImage/Details_Carbon.bmp", "./samples/bitNoise-8.bmp", null, false, 2, false, false, 8, false, true},
 		});
 	}
 	
