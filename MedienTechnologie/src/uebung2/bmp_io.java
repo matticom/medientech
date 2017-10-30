@@ -74,9 +74,10 @@ public final class bmp_io {
 			for (int y = 0; y < bmp.image.getHeight(); y++) {
 				for (int x = 0; x < bmp.image.getWidth(); x++) {
 					PixelColor actualPixel = bmp.image.getRgbPixel(x, y);
-					int grey = (int) ((0.2126 * Math.pow(actualPixel.r / 255.0, 2.2)
-							+ 0.7152 * Math.pow(actualPixel.g / 255.0, 2.2)
-							+ 0.0722 * Math.pow(actualPixel.b / 255.0, 2.2)) * 255);
+//					int grey = (int) ((0.2126 * Math.pow(actualPixel.r / 255.0, 2.2)
+//							+ 0.7152 * Math.pow(actualPixel.g / 255.0, 2.2)
+//							+ 0.0722 * Math.pow(actualPixel.b / 255.0, 2.2)) * 255);
+					int grey = (int) (0.333 * actualPixel.r + 0.333 * actualPixel.g + 0.333 * actualPixel.b);
 					actualPixel.r = grey;
 					actualPixel.g = grey;
 					actualPixel.b = grey;
