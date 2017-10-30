@@ -53,6 +53,11 @@ public class BmpDataConv {
 			{"./backupImage/grating_V2.bmp", "./samples/horizontalDS4.bmp", "./samples/test", false, 4, true, false, 1, false, false},
 			{"./backupImage/grating_V2.bmp", "./samples/horizontalDS5.bmp", "./samples/test", false, 5, true, false, 1, false, false},
 			
+			{"./backupImage/grating_H2.bmp", "./samples/verticalDS2.bmp", "./samples/test", false, 2, true, true, 1, false, false},
+			{"./backupImage/grating_H2.bmp", "./samples/verticalDS3.bmp", "./samples/test", false, 3, true, true, 1, false, false},
+			{"./backupImage/grating_H2.bmp", "./samples/verticalDS4.bmp", "./samples/test", false, 4, true, true, 1, false, false},
+			{"./backupImage/grating_H2.bmp", "./samples/verticalDS5.bmp", "./samples/test", false, 5, true, true, 1, false, false},
+			
 			{"./backupImage/Details_Carbon.bmp", "./samples/detail_gray.bmp", "./samples/test", true, 5, false, false, 1, false, false},
 			
 			
