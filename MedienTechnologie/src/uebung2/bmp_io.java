@@ -115,12 +115,12 @@ public final class bmp_io {
 			for (int y = 0; y < bmp.image.getHeight(); y++) {
 				for (int x = 0; x < bmp.image.getWidth(); x++) {
 					PixelColor actualPixel = bmp.image.getRgbPixel(x, y);
-					int red = (short) (actualPixel.r / Math.pow(2, reduced_bits));
-					int green = (short) (actualPixel.g / Math.pow(2, reduced_bits));
-					int blue = (short) (actualPixel.b / Math.pow(2, reduced_bits));
-					actualPixel.r = (short) (red * Math.pow(2, reduced_bits));
-					actualPixel.g = (short) (green * Math.pow(2, reduced_bits));
-					actualPixel.b = (short) (blue * Math.pow(2, reduced_bits));
+					int red = (int) (actualPixel.r / Math.pow(2, reduced_bits));
+					int green = (int) (actualPixel.g / Math.pow(2, reduced_bits));
+					int blue = (int) (actualPixel.b / Math.pow(2, reduced_bits));
+					actualPixel.r = (int) (red * Math.pow(2, reduced_bits));
+					actualPixel.g = (int) (green * Math.pow(2, reduced_bits));
+					actualPixel.b = (int) (blue * Math.pow(2, reduced_bits));
 				}
 			}
 		}
@@ -131,24 +131,39 @@ public final class bmp_io {
 			for (int y = 0; y < bmp.image.getHeight(); y++) {
 				for (int x = 0; x < bmp.image.getWidth(); x++) {
 					PixelColor actualPixel = bmp.image.getRgbPixel(x, y);
+				
 					int originalRed = actualPixel.r;
 					int originalGreen = actualPixel.g;
 					int originalBlue = actualPixel.b;
 					
-					int reducedRed = (short) (actualPixel.r / Math.pow(2, reduced_bits));
-					int reducedGreen = (short) (actualPixel.g / Math.pow(2, reduced_bits));
-					int reducedBlue = (short) (actualPixel.b / Math.pow(2, reduced_bits));
-					reducedRed = (short) (reducedRed * Math.pow(2, reduced_bits));
-					reducedGreen = (short) (reducedGreen * Math.pow(2, reduced_bits));
-					reducedBlue = (short) (reducedBlue * Math.pow(2, reduced_bits));
+					int reducedRed = (int) (actualPixel.r / Math.pow(2, reduced_bits));
+					int reducedGreen = (int) (actualPixel.g / Math.pow(2, reduced_bits));
+					int reducedBlue = (int) (actualPixel.b / Math.pow(2, reduced_bits));
+					reducedRed = (int) (reducedRed * Math.pow(2, reduced_bits));
+					reducedGreen = (int) (reducedGreen * Math.pow(2, reduced_bits));
+					reducedBlue = (int) (reducedBlue * Math.pow(2, reduced_bits));
 					
+					// Original minus Bitreduziertes Bild: das Original kann bei -8bit wiederhergestellt werden 
+//					int diffRed = originalRed - reducedRed;
+//					int diffGreen = originalGreen - reducedGreen;
+//					int diffBlue = originalBlue - reducedBlue;
+					
+					// Bitreduziertes Bild minus Original: das Original kann bei -8bit invertiert wiederhergestellt werden
 					int diffRed = reducedRed - originalRed;
-					int diffGreen = reducedRed - originalGreen;
-					int diffBlue = reducedRed - originalBlue;
+					int diffGreen = reducedGreen - originalGreen;
+					int diffBlue = reducedBlue - originalBlue;
 					
-					actualPixel.r = (short)(diffRed * Math.pow(2, bitsPerColor-reduced_bits-1));
-					actualPixel.g = (short)(diffGreen * Math.pow(2, bitsPerColor-reduced_bits-1));
-					actualPixel.b = (short)(diffBlue * Math.pow(2, bitsPerColor-reduced_bits-1));
+					diffRed = 127 + diffRed/2;
+					diffGreen = 127 + diffGreen/2;
+					diffBlue = 127 + diffBlue/2;
+					
+//					System.out.println("red: " + diffRed);
+//					System.out.println("green: " + diffGreen);
+//					System.out.println("blue: " + diffBlue+ "\n\n");
+					
+					actualPixel.r = (int)(diffRed * Math.pow(2, bitsPerColor-reduced_bits-1));
+					actualPixel.g = (int)(diffGreen * Math.pow(2, bitsPerColor-reduced_bits-1));
+					actualPixel.b = (int)(diffBlue * Math.pow(2, bitsPerColor-reduced_bits-1));
 				}
 			}
 		}
