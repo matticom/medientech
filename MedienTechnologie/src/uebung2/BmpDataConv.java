@@ -75,8 +75,8 @@ public class BmpDataConv {
 //			{"./backupImage/grating_H2.bmp", "./samples/verticalDS11.bmp", "./samples/test", false, 11, true, true, 1, false, false},
 
 			
-//			{"./backupImage/Details_Carbon.bmp", "./samples/detail_gray.bmp", "./samples/test", true, 5, false, false, 1, false, false},
-			{"./backupImage/Flaechen_Carbon.bmp", "./samples/flaechen_gray.bmp", "./samples/test", true, 5, false, false, 1, false, false},
+			{"./backupImage/Details_Carbon.bmp", "./samples/detail_gray.bmp", "./samples/test", true, 5, false, false, 1, false, false},
+//			{"./backupImage/Flaechen_Carbon.bmp", "./samples/flaechen_gray.bmp", "./samples/test", true, 5, false, false, 1, false, false},
 			
 			
 			// BitReduktion der beiden Bilder in verschiedenen Stufen
