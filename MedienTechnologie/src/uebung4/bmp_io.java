@@ -100,6 +100,18 @@ public final class bmp_io {
 						crPicPixel.r = (int) (yPicPixel.r * 0.5 + 128);
 						crPicPixel.g = (int) (yPicPixel.g * -0.419 + 128);
 						crPicPixel.b = (int) (yPicPixel.b * -0.081 + 128);
+//						yPicPixel = yPic.image.getRgbPixel(x, y);
+//						yPicPixel.r = (int) (yPicPixel.r * 0.299 + yPicPixel.g * 0.587 + yPicPixel.b * 0.114);
+//						yPicPixel.g = 0;
+//						yPicPixel.b = 0;
+//						cbPicPixel = cbPic.image.getRgbPixel(x, y);
+//						cbPicPixel.r = 0;
+//						cbPicPixel.g = (int) (yPicPixel.r * -0.169 + yPicPixel.g * -0.331 + yPicPixel.b * 0.5 + 128);
+//						cbPicPixel.b = 0;
+//						crPicPixel = crPic.image.getRgbPixel(x, y);
+//						crPicPixel.r = 0;
+//						crPicPixel.g = 0;
+//						crPicPixel.b = (int) (yPicPixel.r * 0.5 + yPicPixel.g * -0.419 + yPicPixel.b * -0.081 + 128);
 					}
 				}
 
