@@ -120,70 +120,30 @@ public final class bmp_io {
 			// G = Y – 0.344 (Cb-128) – 0.714 (Cr -128)
 			// B = Y + 1.773 (Cb-128)
 			
-			
-
 			try (	InputStream inRGB = new FileInputStream(inFilename);
 					OutputStream outRGB = new FileOutputStream("./samples_uebung4/Details_YCbCr2RGB.bmp");) {
-
-//				BmpImage rgbPic = BmpReader.read_bmp(inRGB);
-//				PixelColor rgbPicPixel = null;
 				
 				BmpImage yPic = BmpReader.read_bmp(inRGB);
 				PixelColor yPicPixel = null;
 
-				for(int n = 0; n < bmp.image.getHeight(); n++) {
-		            for (int m = 0; m < bmp.image.getWidth(); m++) {
-		                pc = bmp.image.getRgbPixel(m,n);
+				for(int n = 0; n < yPic.image.getHeight(); n++) {
+		            for (int m = 0; m < yPic.image.getWidth(); m++) {
+		                yPicPixel = yPic.image.getRgbPixel(m,n);
 
 		                // RGB to YCbCr
-		                double lum = 0.299 * pc.r + 0.587 * pc.g + 0.114 * pc.b;
-		                double cb = 128 + (-0.169) * pc.r + (- 0.331 * pc.g) + 0.5 * pc.b;
-		                double cr = 128 + 0.5 * pc.r + (-0.419 * pc.g) + (-0.081 * pc.b);
+		                double lum = 0.299 * yPicPixel.r + 0.587 * yPicPixel.g + 0.114 * yPicPixel.b;
+		                double cb = 128 + (-0.169) * yPicPixel.r + (- 0.331 * yPicPixel.g) + 0.5 * yPicPixel.b;
+		                double cr = 128 + 0.5 * yPicPixel.r + (-0.419 * yPicPixel.g) + (-0.081 * yPicPixel.b);
 
-		                // Y
-//		                pc.r = (int) lum;
-//		                pc.g = (int) lum;
-//		                pc.b = (int) lum;
+		                // YCbCr to RGB
+		                yPicPixel.r = (int) (lum + 1.402 * (cr - 128));
+		                yPicPixel.g = (int) (lum - 0.344 * (cb - 128) - 0.714 * (cr - 128));
+		                yPicPixel.b = (int) (lum + 1.772 * (cb - 128));
 
-
-//		                 YCbCr to RGB
-		                pc.r = (int) (lum + 1.402 * (cr - 128));
-		                pc.g = (int) (lum - 0.344 * (cb - 128) - 0.714 * (cr - 128));
-		                pc.b = (int) (lum + 1.772 * (cb - 128));
-
-//		                yPic.image.setRgbPixel(m,n,pc);
+		                yPic.image.setRgbPixel(m,n,yPicPixel);
 		            }
 		        }
-				
-				
-//				for (int x = 0; x < bmp.image.getWidth(); x++) {
-//	                for (int y = 0; y < bmp.image.getHeight(); y++) {
-//	                    yPicPixel = yPic.image.getRgbPixel(x, y);
-//
-//	                    double hell = 0.299 * yPicPixel.r + 0.587 * yPicPixel.g + 0.114 * yPicPixel.b;
-//	                    double cr = (yPicPixel.r * -0.169) + (yPicPixel.g * -0.331) + (yPicPixel.b * 0.5) + 128;
-//	                    double cb = (yPicPixel.r * 0.5) + (yPicPixel.g * -0.419) + (yPicPixel.b * -0.081) + 128;
-//
-//	                    yPicPixel.r = (int) (hell + 1.403 * (cr - 128));
-//	                    yPicPixel.g = (int) (hell - 0.344 * (cb - 128) - 0.714 * (cr - 128));
-//	                    yPicPixel.b = (int) (hell + 1.773 * (cb - 128));
-//	                }
-//	            }
-				
-				BmpWriter.write_bmp(outRGB, yPic);
-				
-//				for (int x = 0; x < bmp.image.getWidth(); x++) {
-//					for (int y = 0; y < bmp.image.getHeight(); y++) {
-//						rgbPicPixel = rgbPic.image.getRgbPixel(x, y);
-//						int grey = (int) (0.299 * rgbPicPixel.r + 0.587 * rgbPicPixel.g + 0.114 * rgbPicPixel.b);
-//						int cr = (int)((rgbPicPixel.r * -0.169) + (rgbPicPixel.g * -0.331) + (rgbPicPixel.b * 0.5) + 128);
-//						int cb = (int)((rgbPicPixel.r * 0.5) + (rgbPicPixel.g * -0.419) + (rgbPicPixel.b * -0.081) + 128);
-//						rgbPicPixel.r = (int) (grey + 1.403 * (cr - 128));
-//						rgbPicPixel.g = (int) (grey - 0.344 * (cb - 128) - 0.714 * (cr - 128));
-//						rgbPicPixel.b = (int) (grey + 1.773 * (cb - 128));
-//					}
-//				}
-//				BmpWriter.write_bmp(outRGB, rgbPic);
+				BmpWriter.write_bmp(outRGB, yPic);				
 			}
 		}
 		
@@ -192,27 +152,29 @@ public final class bmp_io {
 
 				for (int x = 0; x < bmp.image.getWidth(); x++) {
 					for (int y = 0; y < bmp.image.getHeight(); y++) {
-						bmp.image.getRgbPixel(x, y).r *= contrastFactor;
-						bmp.image.getRgbPixel(x, y).g *= contrastFactor;
-						bmp.image.getRgbPixel(x, y).b *= contrastFactor;
-						if (bmp.image.getRgbPixel(x, y).r < 0) {
-							bmp.image.getRgbPixel(x, y).r = 0;
+						int red = (int)((bmp.image.getRgbPixel(x, y).r - 128) * contrastFactor + 128);
+						int green = (int)((bmp.image.getRgbPixel(x, y).g - 128) * contrastFactor + 128);
+						int blue = (int)((bmp.image.getRgbPixel(x, y).b - 128) * contrastFactor + 128);
+				
+						if (red < 0) {
+							red = 0;
 						}
-						if (bmp.image.getRgbPixel(x, y).r > 255) {
-							bmp.image.getRgbPixel(x, y).r = 255;
+						if (red > 255) {
+							red = 255;
 						}
-						if (bmp.image.getRgbPixel(x, y).g < 0) {
-							bmp.image.getRgbPixel(x, y).g = 0;
+						if (green < 0) {
+							green = 0;
 						}
-						if (bmp.image.getRgbPixel(x, y).g > 255) {
-							bmp.image.getRgbPixel(x, y).g = 255;
+						if (green > 255) {
+							green = 255;
 						}
-						if (bmp.image.getRgbPixel(x, y).b < 0) {
-							bmp.image.getRgbPixel(x, y).b = 0;
+						if (blue < 0) {
+							blue = 0;
 						}
-						if (bmp.image.getRgbPixel(x, y).b > 255) {
-							bmp.image.getRgbPixel(x, y).b = 255;
+						if (blue > 255) {
+							blue = 255;
 						}
+						bmp.image.setRgbPixel(x, y, new PixelColor(blue, green, red));
 					}
 				}
 				BmpWriter.write_bmp(out, bmp);
