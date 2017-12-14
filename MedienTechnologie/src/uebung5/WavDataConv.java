@@ -42,14 +42,33 @@ public class WavDataConv {
 		return Arrays.asList(new Object[][] {
 			//(String[] inOut, 	int gain_factor, int echoSpeechDelay, int echoMusicDelay, String writeValueTxt) 
 			
-			{"./backupAudio/Sprache_Carbon.wav", "./samples_uebung5/Sprache_Carbon_Gain_3db.wav", 3, 0, 0, false, false, "./samples_uebung5/Sprache_Carbon_Gain_3db.txt"},
-			{"./backupAudio/Sprache_Carbon.wav", "./samples_uebung5/Sprache_Carbon_Gain_6db.wav", 6, 0, 0, false, false, "./samples_uebung5/Sprache_Carbon_Gain_6db.txt"},
-			{"./backupAudio/Sprache_Carbon.wav", "./samples_uebung5/Sprache_Carbon_Gain_9db.wav", 9, 0, 0, false, false, "./samples_uebung5/Sprache_Carbon_Gain_9db.txt"},
+			// 1a
+			{"./backupAudio/Musik_Carbon.wav", "./samples_uebung5/Musik_Carbon_Gain_3db.wav", 3, 0, 0, false, false, null},
+			{"./backupAudio/Musik_Carbon.wav", "./samples_uebung5/Musik_Carbon_Gain_6db.wav", 6, 0, 0, false, false, null},
+			{"./backupAudio/Musik_Carbon.wav", "./samples_uebung5/Musik_Carbon_Gain_9db.wav", 9, 0, 0, false, false, null},
 			
-//			{"./backupAudio/Sprache_Carbon.wav", "./samples_uebung5/Sprache_Carbon_Delay1s.wav", 0, 100, 0, false, false, "./samples_uebung5/Sprache_Carbon_Delay100ms.txt"},
-//			{"./backupAudio/Musik_Carbon.wav", "./samples_uebung5/Musik_Carbon_Delay1s.wav", 0, 0, 10, false, false, "./samples_uebung5/Musik_Carbon_Delay1s.txt"},
-			{"./backupAudio/white_noise_ue5.wav", "./samples_uebung5/white_noise_ue5_positiv.wav", 0, 0, 0, true, true, "./samples_uebung5/white_noise_ue5_positiv.txt"},
-			{"./backupAudio/white_noise_ue5.wav", "./samples_uebung5/white_noise_ue5_negativ.wav", 0, 0, 0, true, false, "./samples_uebung5/white_noise_ue5_negativ.txt"},
+			// 1b
+			
+			// 1c
+			{"./backupAudio/sine_1000_ue5.wav", "./samples_uebung5/sine_1000_ue5_Gain_6db.wav", 6, 0, 0, false, false, null},
+			{"./backupAudio/sine_1000_ue5.wav", "./samples_uebung5/sine_1000_ue5_Gain_9db.wav", 9, 0, 0, false, false, null},
+			{"./backupAudio/sine_1000_ue5.wav", "./samples_uebung5/sine_1000_ue5_Gain_12db.wav", 12, 0, 0, false, false, null},
+			
+			// 2a
+			{"./backupAudio/Sprache_Carbon.wav", "./samples_uebung5/Sprache_Carbon_Delay_10ms.wav", 0, 10, 0, false, false, null},
+			{"./backupAudio/Sprache_Carbon.wav", "./samples_uebung5/Sprache_Carbon_Delay_100ms.wav", 0, 100, 0, false, false, null},
+			{"./backupAudio/Sprache_Carbon.wav", "./samples_uebung5/Sprache_Carbon_Delay_200ms.wav", 0, 200, 0, false, false, null},
+			{"./backupAudio/Musik_Carbon.wav", "./samples_uebung5/Musik_Carbon_Delay_10ms.wav", 0, 10, 0, false, false, null},
+			{"./backupAudio/Musik_Carbon.wav", "./samples_uebung5/Musik_Carbon_Delay_100ms.wav", 0, 100, 0, false, false, null},
+			{"./backupAudio/Musik_Carbon.wav", "./samples_uebung5/Musik_Carbon_Delay_200ms.wav", 0, 200, 0, false, false, null},
+			
+			// 3a
+			{"./backupAudio/Musik_Carbon.wav", "./samples_uebung5/Musik_Carbon_positiv.wav", 0, 0, 0, true, true, null},
+			{"./backupAudio/Musik_Carbon.wav", "./samples_uebung5/Musik_Carbon_negativ.wav", 0, 0, 0, true, false, null},
+			
+			// 3b
+			{"./backupAudio/white_noise_ue5.wav", "./samples_uebung5/white_noise_ue5_positiv.wav", 0, 0, 0, true, true, null},
+			{"./backupAudio/white_noise_ue5.wav", "./samples_uebung5/white_noise_ue5_negativ.wav", 0, 0, 0, true, false, null},
 
 		});
 	}
