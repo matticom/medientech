@@ -40,8 +40,8 @@ public class WavDataConv {
 		return Arrays.asList(new Object[][] {
 			//(String[] inOut, 	int reduced_bits, 	String writeValueTxt, 	boolean downsampling, 	boolean bitReduction, 	boolean bitNoise) 
 			
-			{"./samples/sine_lo01.wav", null, 0, "./samples/sine_lo01.txt", false, false, false},
-			{"./samples/sine_hi01.wav", null, 0, "./samples/sine_hi01.txt", false, false, false},
+			{"./backupAudio/Musik_Carbon.wav", null, 0, "./samples/sine_lo01.txt", false, false, false},
+			{"./backupAudio/Sprache_Carbon.wav", null, 0, "./samples/sine_hi01.txt", false, false, false},
 //			
 //			
 //			{"./samples/Sprache_Carbon.wav", "./samples/Sprache_Carbon_-1Bit.wav", 1, "./samples/Sprache_Carbon_-1Bit.txt", false, true, false},

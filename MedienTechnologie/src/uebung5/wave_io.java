@@ -4,9 +4,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+
 public class wave_io 
 {
-	public static void waveConvert(String[] args, int gain_factor, int reduced_bits, String writeValueTxt, boolean downsampling, boolean bitReduction, boolean bitNoise) 
+	public static void waveConvert(String[] args, int gain_factor, int echoSpeechDelay, int echoMusicDelay, boolean filter, boolean positivFilter, String writeValueTxt) 
 	{
 		int samples=0;
 		int validBits=0;
@@ -48,7 +49,7 @@ public class wave_io
 						fileOut.println(readWavFile.sound[i]);
 					}
 				} catch (IOException e) {
-					System.out.println("Problem beim �ffnen der Datei zum Schreiben");
+					System.out.println("Problem beim öffnen der Datei zum Schreiben");
 				}
 		    }
 			
@@ -62,51 +63,97 @@ public class wave_io
 		} catch (WavFileException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		} 
 			
 		outFilename=args[1];
 		try {
 
 			// 2.4 Downsampling
 			if (gain_factor > 0){
-				short[] soundNew = new short[samples/2];
-				for (int i=0; i < samples/2;i++) {
-					soundNew[i] = readWavFile.sound[i*2];
+				for (int i = 0; i < samples; i++) {
+					int sample = readWavFile.sound[i];
+					sample *= Math.pow(10,gain_factor/20.0);
+					if (sample > 32767) {
+						sample = 32767;
+					}
+					if (sample < -32768) {
+						sample = -32768;
+					}
+					readWavFile.sound[i] = (short)sample;
 				}
-				readWavFile.sound = soundNew;
 			}
+			
+			// in ms
+			if (echoSpeechDelay > 0) {
+				int numbersOfDelaySamples = (int)(echoSpeechDelay/1000.0 * sampleRate);
+				for (int i = 0; i < samples; i++) {
+					int sample = readWavFile.sound[i];
+					if (i < numbersOfDelaySamples) {
+						// nichts machen
+					} else {
+						int echoIndex = i - numbersOfDelaySamples;
+						sample = (int)(sample + 0.6 * readWavFile.sound[echoIndex]);
+						if (sample > 32767) {
+							sample = 32767;
+						}
+						if (sample < -32768) {
+							sample = -32768;
+						}
+						readWavFile.sound[i] = (short)sample;
+					}
+				}
+			}
+			
+			// in ms
+			if (echoMusicDelay > 0) {
+				int numbersOfDelaySamples = (int)(echoMusicDelay/1000.0 * sampleRate);
+				for (int i = 0; i < numFrames; i++) {
+					int sampleCH1 = readWavFile.sound[i*2];
+					int sampleCH2 = readWavFile.sound[i*2+1];
+					if (i < numbersOfDelaySamples) {
+						// nichts machen
+					} else {
+						int echoIndex = i - numbersOfDelaySamples;
+						sampleCH1 = (int)(sampleCH1 + 0.6 * readWavFile.sound[echoIndex*2]);
+						sampleCH2 = (int)(sampleCH2 + 0.6 * readWavFile.sound[echoIndex*2+1]);
+						if (sampleCH1 > 32767) {
+							sampleCH1 = 32767;
+						}
+						if (sampleCH1 < -32768) {
+							sampleCH1 = -32768;
+						}
+						if (sampleCH2 > 32767) {
+							sampleCH2 = 32767;
+						}
+						if (sampleCH2 < -32768) {
+							sampleCH2 = -32768;
+						}
+						readWavFile.sound[i*2] = (short)sampleCH1;
+						readWavFile.sound[i*2+1] = (short)sampleCH2;
+					}
+				}
+			}
+
 		
-		
- 			// 3.2 Bitreduzierung
-//			int reduced_bits = 1;
-			
-			if (bitReduction) {
-				for (int i=0; i < samples; i++) {
-					short temp = (short)(readWavFile.sound[i]/Math.pow(2, reduced_bits));
-					readWavFile.sound[i] = (short)(temp*Math.pow(2, reduced_bits));	
+			if (filter) {
+				for (int i = 1; i < samples; i++) {
+					int sample = readWavFile.sound[i];
+					if (positivFilter) {
+						sample = (int)(0.5 * sample + 0.45 * readWavFile.sound[i-1]);
+					} else {
+						sample = (int)(0.5 * sample - 0.45 * readWavFile.sound[i-1]);
+					}
+					if (sample > 32767) {
+						sample = 32767;
+					}
+					if (sample < -32768) {
+						sample = -32768;
+					}
+					readWavFile.sound[i] = (short)sample;
 				}
 			}
 			
-			
- 			// 3.4 Bitreduzierung
-//			reduced_bits = 1;
-			if (bitNoise){
-				for (int i=0; i < samples; i++) {
-					short original = readWavFile.sound[i];
-					short reduced = (short)(readWavFile.sound[i]/Math.pow(2, reduced_bits));
-					reduced = (short)(reduced*Math.pow(2, reduced_bits));
-					short diff = (short)(reduced - original);
-					readWavFile.sound[i] = (short)(diff*Math.pow(2, validBits-reduced_bits-1));	
-				}
-			}
-			
-			if (downsampling){
-				WavFile.write_wav(outFilename, numChannels, numFrames/2, validBits, sampleRate/2, readWavFile.sound);
-			} else {
-				WavFile.write_wav(outFilename, numChannels, numFrames, validBits, sampleRate, readWavFile.sound);
-			}
-			
-			
+			WavFile.write_wav(outFilename, numChannels, numFrames, validBits, sampleRate, readWavFile.sound);
 		}			
 		catch (Exception e) {
 			System.err.println(e);
