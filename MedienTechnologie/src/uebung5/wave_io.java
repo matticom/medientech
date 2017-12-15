@@ -89,16 +89,16 @@ public class wave_io
 				for (int i = 0; i < samples; i++) {
 					int sample = readWavFile.sound[i];
 					if (i < numbersOfDelaySamples) {
-						// nichts machen
+						sample = sample/2;
 					} else {
 						int echoIndex = i - numbersOfDelaySamples;
-						sample = (int)(sample + 0.6 * readWavFile.sound[echoIndex]);
-						if (sample > 32767) {
-							sample = 32767;
-						}
-						if (sample < -32768) {
-							sample = -32768;
-						}
+						sample = (int)(sample/2 + 0.6 * readWavFile.sound[echoIndex]/2);
+//						if (sample > 32767) {
+//							sample = 32767;
+//						}
+//						if (sample < -32768) {
+//							sample = -32768;
+//						}
 						readWavFile.sound[i] = (short)sample;
 					}
 				}
@@ -111,23 +111,24 @@ public class wave_io
 					int sampleCH1 = readWavFile.sound[i*2];
 					int sampleCH2 = readWavFile.sound[i*2+1];
 					if (i < numbersOfDelaySamples) {
-						// nichts machen
+						sampleCH1 = sampleCH1/2;
+						sampleCH2 = sampleCH2/2;
 					} else {
 						int echoIndex = i - numbersOfDelaySamples;
-						sampleCH1 = (int)(sampleCH1 + 0.6 * readWavFile.sound[echoIndex*2]);
-						sampleCH2 = (int)(sampleCH2 + 0.6 * readWavFile.sound[echoIndex*2+1]);
-						if (sampleCH1 > 32767) {
-							sampleCH1 = 32767;
-						}
-						if (sampleCH1 < -32768) {
-							sampleCH1 = -32768;
-						}
-						if (sampleCH2 > 32767) {
-							sampleCH2 = 32767;
-						}
-						if (sampleCH2 < -32768) {
-							sampleCH2 = -32768;
-						}
+						sampleCH1 = (int)(sampleCH1/2 + 0.6 * readWavFile.sound[echoIndex*2]/2);
+						sampleCH2 = (int)(sampleCH2/2 + 0.6 * readWavFile.sound[echoIndex*2+1]/2);
+//						if (sampleCH1 > 32767) {
+//							sampleCH1 = 32767;
+//						}
+//						if (sampleCH1 < -32768) {
+//							sampleCH1 = -32768;
+//						}
+//						if (sampleCH2 > 32767) {
+//							sampleCH2 = 32767;
+//						}
+//						if (sampleCH2 < -32768) {
+//							sampleCH2 = -32768;
+//						}
 						readWavFile.sound[i*2] = (short)sampleCH1;
 						readWavFile.sound[i*2+1] = (short)sampleCH2;
 					}
@@ -136,8 +137,12 @@ public class wave_io
 
 		
 			if (filter) {
+				
 				for (int i = 1; i < samples; i++) {
 					int sample = readWavFile.sound[i];
+					if (i < 1) {
+						sample = (int)(0.5 * sample);
+					}
 					if (positivFilter) {
 						sample = (int)(0.5 * sample + 0.45 * readWavFile.sound[i-1]);
 					} else {
