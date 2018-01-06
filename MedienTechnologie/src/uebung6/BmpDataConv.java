@@ -14,34 +14,28 @@ import org.junit.runners.Parameterized.Parameters;
 public class BmpDataConv {
 
 	protected String input;
-	protected boolean RGBpics;
-	protected boolean YCbCr;
-	protected boolean YCbCrToRGB;
-	protected boolean histogram;
-	protected String histogramOutput;
-	protected boolean meanBrightness;
-	protected boolean contrast;
-	protected double contrastFactor;
-	protected String contrastOutput;
-	protected boolean changeBrightness;
-	protected int de_increaseBrightness;
-	protected String brightnessOutput;
+	protected String input2;
+	protected String output1;
+	protected String output2;
+	protected String output3;
+	protected String output4;
+	protected boolean mean;
+	protected boolean gradient;
+	protected boolean median;
+	protected boolean sobel;
 
-	public BmpDataConv(String input, boolean RGBpics, boolean YCbCr, boolean YCbCrToRGB, boolean histogram, String histogramOutput, boolean meanBrightness, 
-			boolean contrast, double contrastFactor, String contrastOutput, boolean changeBrightness, int de_increaseBrightness, String brightnessOutput){
+	public BmpDataConv(String input, String input2, String output1, String output2, String output3, String output4, 
+			boolean mean, boolean gradient, boolean median, boolean sobel){
 		this.input = input;
-		this.RGBpics = RGBpics;
-		this.YCbCr = YCbCr;
-		this.YCbCrToRGB = YCbCrToRGB;
-		this.histogram = histogram;
-		this.histogramOutput = histogramOutput;
-		this.meanBrightness = meanBrightness;
-		this.contrast = contrast;
-		this.contrastFactor = contrastFactor;
-		this.contrastOutput = contrastOutput;
-		this.changeBrightness = changeBrightness;
-		this.de_increaseBrightness = de_increaseBrightness;
-		this.brightnessOutput = brightnessOutput;
+		this.input2 = input2;
+		this.output1 = output1;
+		this.output2 = output2;
+		this.output3 = output3;
+		this.output4 = output4;
+		this.mean = mean;
+		this.gradient = gradient;
+		this.median = median;
+		this.sobel = sobel;
 	}
 	
 	@Parameters
@@ -50,71 +44,37 @@ public class BmpDataConv {
 	}
 	
 	private static List<Object[]> generateTestArrayList() {
+		String in1 = "./backupImage/Details_gray6.bmp";
+		String in2 = "./backupImage/flaechen_gray6.bmp";
+		String inFehler1 = "./backupImage/Details_gray_Fehler.bmp";
+		String inFehler2 = "./backupImage/flaechen_gray_Fehler.bmp";
 		return Arrays.asList(new Object[][] {
-//			String input, boolean RGBpics, boolean YCbCr, boolean YCbCrToRGB, boolean histogram, String histogramOutput, boolean meanBrightness, 
-//			boolean contrast, double contrastFactor, String contrastOutput, boolean changeBrightness, int de_increaseBrightness, String brightnessOutput
 			
-			// Aufgabe 1 b
-			{"./backupImage/Details_Carbon.bmp", true, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, false, 0, null},
-			// Aufgabe 1 c
-			{"./backupImage/Details_Carbon.bmp", false, true, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, false, 0, null},
-			// Aufgabe 1 d
-			{"./backupImage/Details_Carbon.bmp", false, false, true, false, null, false, false, Double.NEGATIVE_INFINITY, null, false, 0, null},
-			// Aufgabe 2 und 3 a
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, true, "./samples_uebung4/Histogramm_Detail_Grayscale.txt", true, true, Double.NEGATIVE_INFINITY, null, false, 0, null},
-//			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, true, "./samples_uebung4/Histogramm_Detail_Grayscale.txt", true, false, Double.NEGATIVE_INFINITY, null, false, 0, null},
-			
-			// Aufgabe 3 b (Input noch auf "./samples_uebung4/Details_Y_Anteil.bmp" umstellen!!!)
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, 20, "./samples_uebung4/Brightness+20.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, 40, "./samples_uebung4/Brightness+40.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, 60, "./samples_uebung4/Brightness+60.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, 80, "./samples_uebung4/Brightness+80.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, 100, "./samples_uebung4/Brightness+100.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, 120, "./samples_uebung4/Brightness+120.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, 140, "./samples_uebung4/Brightness+140.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, 160, "./samples_uebung4/Brightness+160.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, 180, "./samples_uebung4/Brightness+180.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, 200, "./samples_uebung4/Brightness+200.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, 220, "./samples_uebung4/Brightness+220.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, 240, "./samples_uebung4/Brightness+240.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, -20, "./samples_uebung4/Brightness-20.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, -40, "./samples_uebung4/Brightness-40.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, -60, "./samples_uebung4/Brightness-60.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, -80, "./samples_uebung4/Brightness-80.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, -100, "./samples_uebung4/Brightness-100.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, -120, "./samples_uebung4/Brightness-120.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, -140, "./samples_uebung4/Brightness-140.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, -160, "./samples_uebung4/Brightness-160.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, -180, "./samples_uebung4/Brightness-180.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, -200, "./samples_uebung4/Brightness-200.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, -220, "./samples_uebung4/Brightness-220.bmp"},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, Double.NEGATIVE_INFINITY, null, true, -240, "./samples_uebung4/Brightness-240.bmp"},
-		
-			{"./samples_uebung4/Brightness+220.bmp", false, false, false, true, "./samples_uebung4/Histogramm_Brightest.txt", true, true, Double.NEGATIVE_INFINITY, null, false, 0, null},
-			{"./samples_uebung4/Brightness-180.bmp", false, false, false, true, "./samples_uebung4/Histogramm_Darkest.txt", true, true, Double.NEGATIVE_INFINITY, null, false, 0, null},
-			
-			// Aufgabe 3 c
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, 0.2, "./samples_uebung4/Contrast_0.2.bmp", false, 0, null},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, 0.4, "./samples_uebung4/Contrast_0.4.bmp", false, 0, null},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, 0.6, "./samples_uebung4/Contrast_0.6.bmp", false, 0, null},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, 0.8, "./samples_uebung4/Contrast_0.8.bmp", false, 0, null},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, 1.0, "./samples_uebung4/Contrast_1.0.bmp", false, 0, null},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, 1.5, "./samples_uebung4/Contrast_1.5.bmp", false, 0, null},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, 2.5, "./samples_uebung4/Contrast_2.5.bmp", false, 0, null},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, 5.0, "./samples_uebung4/Contrast_5.0.bmp", false, 0, null},
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, 10.0, "./samples_uebung4/Contrast_10.0.bmp", false, 0, null},
-		
-			{"./samples_uebung4/Details_Y_Anteil.bmp", false, false, false, false, null, false, false, -0.6, "./samples_uebung4/Contrast_-0.6.bmp", false, 0, null},
-
-			{"./samples_uebung4/Contrast_0.2.bmp", false, false, false, true, "./samples_uebung4/Histogramm_Least_Contrast.txt", true, true, Double.NEGATIVE_INFINITY, null, false, 0, null},
-			{"./samples_uebung4/Contrast_2.5.bmp", false, false, false, true, "./samples_uebung4/Histogramm_Most_Contrast.txt", true, true, Double.NEGATIVE_INFINITY, null, false, 0, null},
-		
+			// Aufgabe 1a und c
+			{	in1, in2, 
+				"./samples_uebung6/1a_Details_gray_Mean.bmp", "./samples_uebung6/1c_Details_gray_Mean_Diff.bmp", 
+				"./samples_uebung6/1a_Flaeche_gray_Mean.bmp", "./samples_uebung6/1c_Flaeche_gray_Mean_Diff.bmp", 
+				true, false, false, false},
+			// Aufgabe 2a und b
+			{	in1, in2, 
+				"./samples_uebung6/2a_Details_gray_Gradient.bmp", "./samples_uebung6/2b_Details_gray_Gradient_Diff.bmp", 
+				"./samples_uebung6/2a_Flaeche_gray_Gradient.bmp", "./samples_uebung6/2b_Flaeche_gray_Gradient_Diff.bmp", 
+				false, true, false, false},
+			// Aufgabe 3
+			{	inFehler1, inFehler2, 
+				"./samples_uebung6/3_Details_gray_Median.bmp", "./samples_uebung6/3_Details_gray_Median_Diff.bmp", 
+				"./samples_uebung6/3_Flaeche_gray_Median.bmp", "./samples_uebung6/3_Flaeche_gray_Median_Diff.bmp", 
+				false, false, true, false},
+			// Aufgabe 4
+			{	in1, in2, 
+				"./samples_uebung6/4_Details_gray_Sobel_vertical.bmp", "./samples_uebung6/4_Details_gray_Sobel_horizontal.bmp", 
+				"./samples_uebung6/4_Flaeche_gray_Sobel_vertical.bmp", "./samples_uebung6/4_Flaeche_gray_Sobel_horizontal.bmp", 
+				false, false, false, true},
 		});
 	}
 	
 	@Test
 	public void convertWavs() throws IOException {
-		bmp_io.bmpConvert(new String[]{input}, RGBpics, YCbCr, YCbCrToRGB, histogram, histogramOutput, meanBrightness, 
-				contrast, contrastFactor, contrastOutput, changeBrightness, de_increaseBrightness, brightnessOutput);
+		bmp_io.bmpConvert(new String[]{input, input2}, output1, output2, output3, output4, mean, gradient, median, sobel);
 	}	
 }
