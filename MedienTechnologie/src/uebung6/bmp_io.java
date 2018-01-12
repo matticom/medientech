@@ -182,7 +182,29 @@ public final class bmp_io {
 				blue += (pc.b * filter[m]);
 			}
 		}		
-		return new PixelColor(round(red/koeffSum), round(green/koeffSum), round(blue/koeffSum));
+		
+		red = round(red/koeffSum);
+		green = round(green/koeffSum);
+		blue = round(blue/koeffSum);
+		if (red < 0) {
+			red = 0;
+		}
+		if (red > 255) {
+			red = 255;
+		}
+		if (green < 0) {
+			green = 0;
+		}
+		if (green > 255) {
+			green = 255;
+		}
+		if (blue < 0) {
+			blue = 0;
+		}
+		if (blue > 255) {
+			blue = 255;
+		}
+		return new PixelColor(red, green, blue);
 	}
 	
 	private static PixelColor medianFilterToPixel(int x, int y, BmpImage input) {
@@ -239,7 +261,10 @@ public final class bmp_io {
 				green += (pc.g * filter[m]);
 				blue += (pc.b * filter[m]);
 			}
-		}		
+		}	
+		red = red / 2 + 127;
+		green = green / 2 + 127;
+		blue = blue / 2 + 127;
 		return new PixelColor(red, green, blue);
 	}
 	
@@ -248,9 +273,9 @@ public final class bmp_io {
 		int diffRed = filter.image.getRgbPixel(x, y).r - original.image.getRgbPixel(x, y).r;
 		int diffGreen = filter.image.getRgbPixel(x, y).g - original.image.getRgbPixel(x, y).g;
 		int diffBlue = filter.image.getRgbPixel(x, y).b - original.image.getRgbPixel(x, y).b;
-		diffRed = 127 + diffRed/2;
-		diffGreen = 127 + diffGreen/2;
-		diffBlue = 127 + diffBlue/2;
+		diffRed = 128 + diffRed;
+		diffGreen = 128 + diffGreen;
+		diffBlue = 128 + diffBlue;
 		// Kontrastverstärkunng
 		diffRed = (int)((diffRed - 128) * contrastFactor + 128);
 		diffGreen = (int)((diffGreen - 128) * contrastFactor + 128);

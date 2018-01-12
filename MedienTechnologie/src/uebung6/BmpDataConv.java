@@ -46,8 +46,8 @@ public class BmpDataConv {
 	private static List<Object[]> generateTestArrayList() {
 		String in1 = "./backupImage/Details_gray6.bmp";
 		String in2 = "./backupImage/flaechen_gray6.bmp";
-		String inFehler1 = "./backupImage/Details_gray_Fehler.bmp";
-		String inFehler2 = "./backupImage/flaechen_gray_Fehler.bmp";
+		String inFehler1 = "./backupImage/Details_gray_FehlerMin.bmp";
+		String inFehler2 = "./backupImage/flaechen_gray_FehlerMin.bmp";
 		return Arrays.asList(new Object[][] {
 			
 			// Aufgabe 1a und c
