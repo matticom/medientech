@@ -89,7 +89,7 @@ public class wave_io {
 						sample = sample / 2;
 					} else {
 						int echoIndex = i - numbersOfDelaySamples;
-						sample = (int) (sample / 2 + 0.6 * readWavFile.sound[echoIndex] / 2);
+						sample = (int) (sample / 2 + 0.6 * readWavFile.sound[echoIndex]);
 						// if (sample > 32767) {
 						// sample = 32767;
 						// }
@@ -114,20 +114,22 @@ public class wave_io {
 						sampleCH2 = sampleCH2 / 2;
 					} else {
 						int echoIndex = i - numbersOfDelaySamples;
-						sampleCH1 = (int) (sampleCH1 / 2 + 0.6 * readWavFile.sound[echoIndex * 2] / 2);
-						sampleCH2 = (int) (sampleCH2 / 2 + 0.6 * readWavFile.sound[echoIndex * 2 + 1] / 2);
-						// if (sampleCH1 > 32767) {
-						// sampleCH1 = 32767;
-						// }
-						// if (sampleCH1 < -32768) {
-						// sampleCH1 = -32768;
-						// }
-						// if (sampleCH2 > 32767) {
-						// sampleCH2 = 32767;
-						// }
-						// if (sampleCH2 < -32768) {
-						// sampleCH2 = -32768;
-						// }
+						sampleCH1 = (int) (sampleCH1 / 2 + 0.6 * readWavFile.sound[echoIndex * 2]);
+						sampleCH2 = (int) (sampleCH2 / 2 + 0.6 * readWavFile.sound[echoIndex * 2 + 1]);
+						 if (sampleCH1 > 32767) {
+						 sampleCH1 = 32767;
+						 System.out.println("war größer");
+						 }
+						 if (sampleCH1 < -32768) {
+						 sampleCH1 = -32768;
+						 }
+						 if (sampleCH2 > 32767) {
+						 sampleCH2 = 32767;
+						 System.out.println("war größer");
+						 }
+						 if (sampleCH2 < -32768) {
+						 sampleCH2 = -32768;
+						 }
 					}
 					newSound[i * 2] = (short) sampleCH1;
 					newSound[i * 2 + 1] = (short) sampleCH2;

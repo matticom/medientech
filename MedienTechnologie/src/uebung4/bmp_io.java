@@ -94,6 +94,9 @@ public final class bmp_io {
 					for (int y = 0; y < bmp.image.getHeight(); y++) {
 						rgbPicPixel = rgbPic.image.getRgbPixel(x, y);
 						
+						
+						// RGB -> YCbCr (aber mit 3 Vektor Darstellung der Komponenten)
+						// für ein Wert für je Y, Cr und Cb nächste Methode
 						yPicPixel = yPic.image.getRgbPixel(x, y);
 						int grey = (int) (0.299 * rgbPicPixel.r + 0.587 * rgbPicPixel.g + 0.114 * rgbPicPixel.b);
 						yPicPixel.r = grey;
